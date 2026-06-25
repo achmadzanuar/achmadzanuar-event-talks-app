@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechTalks 2026 - Event Schedule</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --accent: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+        }
+
+        #search {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #search:focus {
+            border-color: var(--primary);
+        }
+
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .talk-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            border-left: 6px solid var(--primary);
+            transition: transform 0.2s;
+        }
+
+        .talk-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        .talk-card.lunch {
+            border-left-color: var(--accent);
+            background: #fffbeb;
+            opacity: 0.9;
+        }
+
+        .time {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .speakers {
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .categories {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .category-tag {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TechTalks 2026</h1>
+            <p>One day. Six talks. Infinite possibilities.</p>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search by category (e.g. AI, React, Cloud)...">
+        </div>
+
+        <div id="schedule" class="schedule">
+            <!-- Talks will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        const talks = [
+            {
+                time: "10:00 AM - 11:00 AM",
+                title: "Scaling Microservices with Kubernetes",
+                speakers: "John Doe & Jane Smith",
+                categories: ["Cloud", "K8s", "Scaling"],
+                description: "Deep dive into orchestration patterns for high-traffic environments using industry-standard Kubernetes features.",
+                type: "talk"
+            },
+            {
+                time: "11:10 AM - 12:10 PM",
+                title: "Advanced React Patterns for 2026",
+                speakers: "Alice Williams",
+                categories: ["Frontend", "React", "JS"],
+                description: "Exploring the latest React features and how to architect clean, performant frontend applications.",
+                type: "talk"
+            },
+            {
+                time: "12:20 PM - 01:20 PM",
+                title: "Securing Your Supply Chain",
+                speakers: "Bob Martin",
+                categories: ["Security", "DevOps"],
+                description: "A comprehensive guide to protecting your software delivery lifecycle from modern security threats.",
+                type: "talk"
+            },
+            {
+                time: "01:20 PM - 02:20 PM",
+                title: "Networking Lunch",
+                speakers: "All Attendees",
+                categories: ["Break"],
+                description: "Enjoy a complimentary meal and network with fellow developers and speakers.",
+                type: "break"
+            },
+            {
+                time: "02:20 PM - 03:20 PM",
+                title: "The Rise of Edge AI",
+                speakers: "Charlie Brown & David Lee",
+                categories: ["AI", "Edge", "IoT"],
+                description: "How machine learning is moving from the cloud to the device, and what it means for latency and privacy.",
+                type: "talk"
+            },
+            {
+                time: "03:30 PM - 04:30 PM",
+                title: "Rust for the Modern Web",
+                speakers: "Emily White",
+                categories: ["Rust", "Performance", "WASM"],
+                description: "Learn how Rust and WebAssembly are revolutionizing web performance for complex applications.",
+                type: "talk"
+            },
+            {
+                time: "04:40 PM - 05:40 PM",
+                title: "Architecting High-Availability Systems",
+                speakers: "Frank Garcia",
+                categories: ["Architecture", "Backend"],
+                description: "Strategies for building resilient systems that maintain 99.999% uptime under extreme conditions.",
+                type: "talk"
+            }
+        ];
+
+        const scheduleEl = document.getElementById('schedule');
+        const searchInput = document.getElementById('search');
+
+        function renderTalks(filter = '') {
+            const normalizedFilter = filter.toLowerCase().trim();
+            
+            const filteredTalks = talks.filter(talk => {
+                if (talk.type === 'break') return true; // Always show breaks
+                return talk.categories.some(cat => talk.categories.some(cat => cat.toLowerCase().includes(normalizedFilter)));
+            });
+
+            if (filteredTalks.length === 1 && filteredTalks[0].type === 'break') {
+                 scheduleEl.innerHTML = '<div class="no-results">No talks found matching that category.</div>';
+                 return;
+            }
+
+            scheduleEl.innerHTML = filteredTalks.map(talk => `
+                <div class="talk-card ${talk.type === 'break' ? 'lunch' : ''}">
+                    <div class="time">${talk.time}</div>
+                    <div class="title">${talk.title}</div>
+                    <div class="speakers">${talk.speakers}</div>
+                    <div class="categories">
+                        ${talk.categories.map(cat => `<span class="category-tag">${cat}</span>`).join('')}
+                    </div>
+                    <div class="description">${talk.description}</div>
+                </div>
+            `).join('');
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            renderTalks(e.target.value);
+        });
+
+        // Initial render
+        renderTalks();
+    </script>
+</body>
+</html>
